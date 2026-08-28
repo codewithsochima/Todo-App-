@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Todo Dashbord</title>
+  </head>
+  <body>
+    <h2>welcome to Your Tasks</h2>
+    <p><a href="/auth/logout">Logout</a></p>
+
+    <form action="/tasks" method="post">
+      <input
+        type="text"
+        name="title"
+        placeholder="Type a new task here..."
+        required
+      />
+    </form>
+
+    <br>
+
+    <div>
+        <strong>Filters:</strong>
+        <a href="/dashboard">All Pending</a> | 
+        <a href="/dashboard?status=completed">Completed</a>
+    </div>
+
+    <h3>Your Todo Last</h3>
+    <ul>
+
+        <li>Example Task (pending) - <a href="#">Mark complete</a> | <a href=""></a>Delete</li>
+    </ul>
+    
+  </body>
+</html>
