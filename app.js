@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+const path = require("path"); 
 require("dotenv").config();
 const session = require("express-session");
 
@@ -18,10 +19,11 @@ app.use(
   }),
 );
 
+app.set("views", path.join(__dirname, "Views"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.send("Welcome to your Todo Application Server!");
+  res.render("login", { error: null });
 });
 
 const authRoutes = require("./routes/auth");
@@ -32,7 +34,7 @@ app.use("/", taskRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("Database connected succesfully"))
+  .then(() => console.log("Database connected successfully"))
   .catch((err) => console.log("Database connection error:", err));
 
 app.listen(PORT, () => {
