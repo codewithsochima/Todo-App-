@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const express = require("express");
 const router = express.Router();
-const User = require("../models/user");
+const User = require("../models/User");
 
 router.get("/register", (req, res) => {
   res.render("register");
@@ -25,6 +25,7 @@ router.post("/register", async (req, res) => {
 
     res.redirect("/auth/login");
   } catch (error) {
+    console.log("THE ACTUAL ERROR IS", error);
     res.send("An error occurred during registration. Please try again.");
   }
 });
@@ -51,12 +52,12 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get('/logout', (req, res) => {
+router.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      return res.send('Error logging out. Please try again.');
+      return res.send("Error logging out. Please try again.");
     }
-    res.redirect('/auth/login');
+    res.redirect("/auth/login");
   });
 });
 

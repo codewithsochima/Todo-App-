@@ -6,7 +6,7 @@
     <title>My Todo Dashbord</title>
   </head>
   <body>
-    <h2>welcome to Your Tasks</h2>
+    <h2>Welcome to Your Tasks</h2>
     <p><a href="/auth/logout">Logout</a></p>
 
     <form action="/tasks" method="post">
@@ -16,21 +16,51 @@
         placeholder="Type a new task here..."
         required
       />
+      <button type="submit">Add Task</button>
     </form>
 
-    <br>
+    <br />
 
     <div>
-        <strong>Filters:</strong>
-        <a href="/dashboard">All Pending</a> | 
-        <a href="/dashboard?status=completed">Completed</a>
+      <strong>Filters:</strong>
+      <a href="/dashboard">All Pending</a> |
+      <a href="/dashboard?status=completed">Completed</a>
     </div>
 
-    <h3>Your Todo Last</h3>
-    <ul>
+      <h3>Your Todo List</h3>
+  
+  <div id="backend-data" data-tasks='<%- JSON.stringify(tasks) %>' style="display: none;"></div>
 
-        <li>Example Task (pending) - <a href="#">Mark complete</a> | <a href=""></a>Delete</li>
-    </ul>
-    
+  <ul id="task-list">
+  
+  </ul>
+
+  <script>
+   
+    const dataContainer = document.getElementById('backend-data');
+    const myTasks = JSON.parse(dataContainer.getAttribute('data-tasks'));
+    const listContainer = document.getElementById('task-list');
+
+  
+    if (myTasks.length === 0) {
+      listContainer.innerHTML = '<li>No tasks found! Type one above to get started.</li>';
+    } else {
+      let rowsHTML = '';
+      
+
+      myTasks.forEach(task => {
+        rowsHTML += `
+          <li>
+            <strong>${task.title}</strong> (${task.status})
+            - <a href="/tasks/${task._id}/complete">Mark Complete</a>
+            | <a href="/tasks/${task._id}/delete">Delete</a>
+          </li>
+        `;
+      });
+      
+      listContainer.innerHTML = rowsHTML;
+    }
+  </script>
+
   </body>
 </html>
